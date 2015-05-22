@@ -90,19 +90,62 @@ insert into trr_um_service_unit_type values ('DOLLARS')
 
 insert into trr_um_service_package values (101, 'Level of Care 1', '9/1/2014', '8/31/2015')
 
-insert into trr_um_service values ('Psychiatric Diagnostic INterview Examination', 2, 1)
+--   Name nvarchar(255),   UnitType int,   ValuePerUnit float,
 
+insert into trr_um_service values ('Psychiatric Diagnostic Interview Examination', 2, 1)
+insert into trr_um_service values ('Pharmacological Management', 2, 1)
+insert into trr_um_service values ('Medication Training and Support (Individual)', 1, 0.25)
+insert into trr_um_service values ('Medication Training and Support (Group)', 1, 0.25)
+insert into trr_um_service values ('Routine Case Management', 1, 0.25)
+insert into trr_um_service values ('Parent Support Group', 1, 1)
+insert into trr_um_service values ('Family Partner Supports', 1, 0.25)
+insert into trr_um_service values ('Family Case Management', 1, 0.25)
+
+--	ServiceId int,	ServiceActivityCode int,
+--dx interview
 insert into trr_um_service_sac_map values (1, 1500)
 insert into trr_um_service_sac_map values (1, 1501)
+--pharm management
+insert into trr_um_service_sac_map values (2, 2201)
+insert into trr_um_service_sac_map values (2, 2202)
+insert into trr_um_service_sac_map values (2, 2203)
+insert into trr_um_service_sac_map values (2, 2204)
+insert into trr_um_service_sac_map values (2, 2205)
+insert into trr_um_service_sac_map values (2, 2211)
+insert into trr_um_service_sac_map values (2, 2212)
+insert into trr_um_service_sac_map values (2, 2213)
+insert into trr_um_service_sac_map values (2, 2214)
+insert into trr_um_service_sac_map values (2, 2215)
+--med training ind
+insert into trr_um_service_sac_map values (3, 4301)
+--med training group
+insert into trr_um_service_sac_map values (4, 4303)
+--RCM
+insert into trr_um_service_sac_map values (5, 3402)
+--parent support group
+insert into trr_um_service_sac_map values (6, 6962)
+--family partner
+insert into trr_um_service_sac_map values (7, 4701)
+--family case management
+insert into trr_um_service_sac_map values (8, 6963)
 
+--	ServiceTypeId int, ServicePackageId int,	ServiceId int,	StandardUnits int,	HighNeedUnits int,
 insert into trr_um_service_package_map values (1, 1, 1, 0, 1)
+insert into trr_um_service_package_map values (1, 1, 2, 1, 2)
+insert into trr_um_service_package_map values (2, 1, 3, 2, 15)
+insert into trr_um_service_package_map values (2, 1, 4, 2, 15)
+insert into trr_um_service_package_map values (2, 1, 5, 2, 4)
+insert into trr_um_service_package_map values (2, 1, 6, 1, 4)
+insert into trr_um_service_package_map values (2, 1, 7, 4, 8)
+insert into trr_um_service_package_map values (2, 1, 8, 2, 4)
 
 select * from trr_um_service_type
 select * from trr_um_service_unit_type
 select * from trr_um_service_package
 select * from trr_um_service
 select * from trr_um_service_sac_map
-select spm.ServicePackageMapId, spm.ServicePackageId, sp.Name, spm.ServiceTypeId, st.Name, spm.ServiceId, s.Name, spm.StandardUnits, spm.HighNeedUnits
+select spm.ServicePackageMapId, spm.ServicePackageId, sp.Name, spm.ServiceTypeId, st.Name, spm.ServiceId, s.Name, spm.StandardUnits, spm.HighNeedUnits,
+	sac.ServiceActivityCode
 from trr_um_service_package_map spm
 join trr_um_service_package sp
   on spm.ServicePackageId = sp.ServicePackageId
@@ -110,3 +153,5 @@ join trr_um_service_type st
   on st.ServiceTypeId = spm.ServiceTypeId
 join trr_um_service s
   on s.ServiceId = spm.ServiceId
+join trr_um_service_sac_map sac
+  on sac.ServiceId = s.serviceid
