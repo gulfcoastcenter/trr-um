@@ -8,13 +8,13 @@ go
 
 create view viewTrrUm as (
 
-select --spm.ServicePackageMapId
-	--, spm.ServicePackageId
-	sp.Code [SP]
+select spm.ServicePackageMapId
+	, spm.ServicePackageId
+	, sp.Code [SP]
 	, sp.Name [SPName]
-	--, spm.ServiceTypeId
+	, spm.ServiceTypeId
 	, st.Name [ServiceType]
-	--, spm.ServiceId
+	, spm.ServiceId
 	, s.Name [Service]
 	, spm.StandardUnits
 	, spm.HighNeedUnits
