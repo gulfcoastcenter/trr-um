@@ -22,6 +22,8 @@ select --spm.ServicePackageMapId
 	, avg(cast(sac.UOSFee as float)) [AvgStdFee]
 	, spm.StandardUnits * avg(cast(sac.UOSFee as float)) [StandardDollars]
 	, spm.HighNeedUnits * avg(cast(sac.UOSFee as float)) [HighDollars]
+	, sp.effectivedate
+	, sp.expirationdate
 from trr_um_service_package_map spm
 join trr_um_service_package sp
   on spm.ServicePackageId = sp.ServicePackageId
@@ -40,5 +42,6 @@ group by sp.code
 	, st.Name, spm.ServiceId
 	, s.Name, spm.StandardUnits
 	, spm.HighNeedUnits
-	
+	, sp.effectivedate
+	, sp.expirationdate
 )
