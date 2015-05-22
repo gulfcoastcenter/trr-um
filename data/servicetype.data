@@ -1,0 +1,3 @@
+/*use table trr_um_service_type */
+insert into trr_um_service_type values ( 'core' )
+insert into trr_um_service_type values ( 'adjunct' )
